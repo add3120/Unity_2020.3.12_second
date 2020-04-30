@@ -6,6 +6,8 @@ public class Monster : MonoBehaviour
     public MonsterData data;
     [Header("補血藥水")]
     public GameObject propHp;
+    [Header("加速藥水")]
+    public GameObject propCD;
 
     // 補血藥水掉落機率 : 30% (0.3)
     // Random.Range(0, 1) - 小於 0.3
@@ -38,6 +40,7 @@ public class Monster : MonoBehaviour
     {
         ani.SetBool("死亡開關", true);
         DropProp();
+        Destroy(gameObject, 0.1f);
     }
 
     /// <summary>
@@ -46,7 +49,6 @@ public class Monster : MonoBehaviour
     private void DropProp()
     {
         float rHP = Random.Range(0f, 1f);
-        print("掉落補血藥水的機率 : " + rHP);
         if (rHP <= data.propHP) Instantiate(propHp, transform.position + Vector3.right * Random.Range(-1f, 1f), Quaternion.identity);
         float rCD = Random.Range(0f, 1f);
         if (rCD <= data.propCD) Instantiate(propCD, transform.position + Vector3.right * Random.Range(-1f, 1f), Quaternion.identity);
